@@ -1,2 +1,1 @@
-# alx-low_level_programming
-alx-low_level_programming--learning c programming
+0x02-functions_nested_loops
