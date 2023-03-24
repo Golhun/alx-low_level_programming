@@ -1,16 +1,24 @@
 #include "main.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * print_line - Entry point
+ * Description: Draws a straight line
+ * @n: Integer variable
+ * Return: int
  */
 
-int main(void)
+void print_line(int n)
 {
-	print_line(0);
-	print_line(2);
-	print_line(10);
-	print_line(-4);
-	return (0);
+	int i;
+
+	if (n <= 0)
+	{
+		_putchar('\n');
+		return;
+	}
+	for (i = 0; i < n; i++)
+	{
+		_putchar('_');
+	}
+	_putchar('\n');
 }
