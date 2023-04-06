@@ -2,46 +2,44 @@
 
 /**
  * _sqrt - Entry point
- * Description: Returns the natural square root of a number
- * @n: integer
- * @x: integer
+ * Description: Checks for natural square root
+ * @a: integer
+ * @b: integer
  *
- * Return: -1 if negative  n if 0 or 1
+ * Return: -1 if negative a if 0 or 1
  */
 
-int _sqrt(int n, int x)
+int _sqrt(int a, int b)
 {
-	if ((x * x) == n)
+	if ((b * b) == a)
 	{
-		return (x);
+		return (b);
 	}
-	if (x == n / 2)
+	if (b == a / 2)
 	{
 		return (-1);
 	}
-	return (_sqrt(n, x + 1));
+	return (_sqrt(a, b + 1));
 }
 
 /**
  * _sqrt_recursion - Entry point
- * Description: Natural square root of a number
- * @n: integer
+ * @a: integer
  *
- * Return: -1 if negative n if 0 or 1
+ * Return: -1 if negative a if 0 or 1
  */
 
-int _sqrt_recursion(int n)
+int _sqrt_recursion(int a)
 {
-	int x = 0;
+	int b = 0;
 
-	if (n < 0)
+	if (a < 0)
 	{
 		return (-1);
 	}
-	if (n == 0)
+	if (a == 1)
 	{
 		return (1);
 	}
-	return (_sqrt(n, x));
+	return (_sqrt(a, b));
 }
-

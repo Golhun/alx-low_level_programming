@@ -31,7 +31,6 @@ int check_match(char *s1, char *s2)
 		}
 	}
 		return (0);
-	
 }
 
 /**
