@@ -1,17 +1,17 @@
 #include "main.h"
-
 /**
- * _puts - Entry point
- * Description: Prints a string to stdout
- * @str: String data type
- * Return: str
+ * _puts - prints string to stdoutput
+ * @str: pointer to string
+ *
+ * Return: void
  */
 
 void _puts(char *str)
 {
-	int i = 0;
+	int i;
 
-	while (str[i] != '\0')
+	i = 0;
+	while (str[i])
 	{
 		_putchar(str[i]);
 		i++;
