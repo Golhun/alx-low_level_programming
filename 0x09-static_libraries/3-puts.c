@@ -2,10 +2,9 @@
 
 /**
  * _puts - Entry point
- * Description: Prints to stdout
- * @str: string to print
- *
- * Return: String
+ * Description: Prints a string to stdout
+ * @str: String data type
+ * Return: str
  */
 
 void _puts(char *str)
@@ -17,5 +16,5 @@ void _puts(char *str)
 		_putchar(str[i]);
 		i++;
 	}
-	_putchar ('\n');
+	_putchar('\n');
 }
