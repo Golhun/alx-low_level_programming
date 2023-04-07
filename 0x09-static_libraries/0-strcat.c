@@ -1,15 +1,14 @@
 #include "main.h"
 
 /**
- * *str_cat - Entry point
+ * *_strcat - Entry point
  * Description: Concatenates two strings
- * @dest: character
- * @src: charater
- *
- * Return: Character
+ * @dest: Character
+ * @src: Character
+ * Return: char
  */
 
-char *str_cat(char *dest, char *src)
+char *_strcat(char *dest, char *src)
 {
 	char *p = dest;
 
