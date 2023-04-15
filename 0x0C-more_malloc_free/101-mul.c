@@ -100,8 +100,8 @@ int get_digit(char c)
 void get_prod(char *prod, char *mult, int digit, int zeroes)
 {
 	int num_length;
-  int num;
-  int tens = 0;
+	int num;
+	int tens = 0;
 
 	num_length = find_len(mult) - 1;
 	mult += num_length;
@@ -147,7 +147,7 @@ void get_prod(char *prod, char *mult, int digit, int zeroes)
 void add_nums(char *end_prod, char *nxt_prod, int next_len)
 {
 	int num;
-  int tens = 0;
+	int tens = 0;
 
 	while (*(end_prod + 1))
 		end_prod++;
