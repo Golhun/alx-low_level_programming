@@ -41,10 +41,8 @@ char *create_xarray(int size)
 	new_arr = malloc(sizeof(char) * size);
 
 	if (new_arr == NULL)
-	{
 		printf("Error\n");
 		exit(98);
-	}
 	for (index = 0; index < (size - 1); index++)
 		new_arr[index] = 'x';
 
