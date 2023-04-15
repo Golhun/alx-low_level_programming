@@ -6,7 +6,7 @@ int find_len(char *str);
 char *create_xarray(int size);
 char *iterate_zeroes(char *str);
 void get_prod(char *prod, char *mult, int digit, int zeroes);
-void add_nums(char *final_prod, char *next_prod, int next_len);
+void add_nums(char *end_prod, char *nxt_prod, int next_len);
 
 /**
  * find_len - Finds the length of a string.
@@ -16,12 +16,12 @@ void add_nums(char *final_prod, char *next_prod, int next_len);
  */
 int find_len(char *str)
 {
-	int len = 0;
+	int str_len = 0;
 
 	while (*str++)
-		len++;
+		str_len++;
 
-	return (len);
+	return (str_len);
 }
 
 /**
@@ -35,20 +35,22 @@ int find_len(char *str)
  */
 char *create_xarray(int size)
 {
-	char *array;
+	char *new_arr;
 	int index;
 
-	array = malloc(sizeof(char) * size);
+	new_arr = malloc(sizeof(char) * size);
 
-	if (array == NULL)
+	if (new_arr == NULL)
+	{
+		printf("Error\n");
 		exit(98);
-
+	}
 	for (index = 0; index < (size - 1); index++)
-		array[index] = 'x';
+		new_arr[index] = 'x';
 
-	array[index] = '\0';
+	new_arr[index] = '\0';
 
-	return (array);
+	return (new_arr);
 }
 
 /**
@@ -76,15 +78,15 @@ char *iterate_zeroes(char *str)
  */
 int get_digit(char c)
 {
-	int digit = c - '0';
+	int num_dgt = c - '0';
 
-	if (digit < 0 || digit > 9)
+	if (num_dgt < 0 || num_dgt > 9)
 	{
 		printf("Error\n");
 		exit(98);
 	}
 
-	return (digit);
+	return (num_dgt);
 }
 
 /**
@@ -99,10 +101,12 @@ int get_digit(char c)
  */
 void get_prod(char *prod, char *mult, int digit, int zeroes)
 {
-	int mult_len, num, tens = 0;
+	int num_length;
+	int num;
+	int tens = 0;
 
-	mult_len = find_len(mult) - 1;
-	mult += mult_len;
+	num_length = find_len(mult) - 1;
+	mult += num_length;
 
 	while (*prod)
 	{
@@ -118,7 +122,7 @@ void get_prod(char *prod, char *mult, int digit, int zeroes)
 		prod--;
 	}
 
-	for (; mult_len >= 0; mult_len--, mult--, prod--)
+	for (; num_length >= 0; num_length--, mult--, prod--)
 	{
 		if (*mult < '0' || *mult > '9')
 		{
@@ -138,44 +142,45 @@ void get_prod(char *prod, char *mult, int digit, int zeroes)
 
 /**
  * add_nums - Adds the numbers stored in two strings.
- * @final_prod: The buffer storing the running final product.
- * @next_prod: The next product to be added.
- * @next_len: The length of next_prod.
+ * @end_prod: The buffer storing the running final product.
+ * @nxt_prod: The next product to be added.
+ * @next_len: The length of nxt_prod.
  */
-void add_nums(char *final_prod, char *next_prod, int next_len)
+void add_nums(char *end_prod, char *nxt_prod, int next_len)
 {
-	int num, tens = 0;
+	int num;
+	int tens = 0;
 
-	while (*(final_prod + 1))
-		final_prod++;
+	while (*(end_prod + 1))
+		end_prod++;
 
-	while (*(next_prod + 1))
-		next_prod++;
+	while (*(nxt_prod + 1))
+		nxt_prod++;
 
-	for (; *final_prod != 'x'; final_prod--)
+	for (; *end_prod != 'x'; end_prod--)
 	{
-		num = (*final_prod - '0') + (*next_prod - '0');
+		num = (*end_prod - '0') + (*nxt_prod - '0');
 		num += tens;
-		*final_prod = (num % 10) + '0';
+		*end_prod = (num % 10) + '0';
 		tens = num / 10;
 
-		next_prod--;
+		nxt_prod--;
 		next_len--;
 	}
 
-	for (; next_len >= 0 && *next_prod != 'x'; next_len--)
+	for (; next_len >= 0 && *nxt_prod != 'x'; next_len--)
 	{
-		num = (*next_prod - '0');
+		num = (*nxt_prod - '0');
 		num += tens;
-		*final_prod = (num % 10) + '0';
+		*end_prod = (num % 10) + '0';
 		tens = num / 10;
 
-		final_prod--;
-		next_prod--;
+		end_prod--;
+		nxt_prod--;
 	}
 
 	if (tens)
-		*final_prod = (tens % 10) + '0';
+		*end_prod = (tens % 10) + '0';
 }
 
 /**
@@ -189,7 +194,7 @@ void add_nums(char *final_prod, char *next_prod, int next_len)
  */
 int main(int argc, char *argv[])
 {
-	char *final_prod, *next_prod;
+	char *end_prod, *nxt_prod;
 	int size, index, digit, zeroes = 0;
 
 	if (argc != 3)
@@ -209,24 +214,24 @@ int main(int argc, char *argv[])
 	}
 
 	size = find_len(argv[1]) + find_len(argv[2]);
-	final_prod = create_xarray(size + 1);
-	next_prod = create_xarray(size + 1);
+	end_prod = create_xarray(size + 1);
+	nxt_prod = create_xarray(size + 1);
 
 	for (index = find_len(argv[2]) - 1; index >= 0; index--)
 	{
 		digit = get_digit(*(argv[2] + index));
-		get_prod(next_prod, argv[1], digit, zeroes++);
-		add_nums(final_prod, next_prod, size - 1);
+		get_prod(nxt_prod, argv[1], digit, zeroes++);
+		add_nums(end_prod, nxt_prod, size - 1);
 	}
-	for (index = 0; final_prod[index]; index++)
+	for (index = 0; end_prod[index]; index++)
 	{
-		if (final_prod[index] != 'x')
-			putchar(final_prod[index]);
+		if (end_prod[index] != 'x')
+			putchar(end_prod[index]);
 	}
 	putchar('\n');
 
-	free(next_prod);
-	free(final_prod);
+	free(nxt_prod);
+	free(end_prod);
 
 	return (0);
 }
