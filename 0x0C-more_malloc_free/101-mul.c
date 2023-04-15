@@ -168,3 +168,68 @@ void add_nums(char *end_prod, char *nxt_prod, int next_len)
 
 	for (; next_len >= 0 && *nxt_prod != 'x'; next_len--)
 	{
+		num = (*nxt_prod - '0');
+		num += tens;
+		*end_prod = (num % 10) + '0';
+		tens = num / 10;
+
+		end_prod--;
+		nxt_prod--;
+	}
+
+	if (tens)
+		*end_prod = (tens % 10) + '0';
+}
+
+/**
+ * main - Multiplies two positive numbers.
+ * @argv: The number of arguments passed to the program.
+ * @argc: An array of pointers to the arguments.
+ *
+ * Description: If the number of arguments is incorrect or one number
+ *              contains non-digits, the function exits with a status of 98.
+ * Return: Always 0.
+ */
+int main(int argc, char *argv[])
+{
+	char *end_prod, *nxt_prod;
+	int size, index, digit, zeroes = 0;
+
+	if (argc != 3)
+	{
+		printf("Error\n");
+		exit(98);
+	}
+
+	if (*(argv[1]) == '0')
+		argv[1] = iterate_zeroes(argv[1]);
+	if (*(argv[2]) == '0')
+		argv[2] = iterate_zeroes(argv[2]);
+	if (*(argv[1]) == '\0' || *(argv[2]) == '\0')
+	{
+		printf("0\n");
+		return (0);
+	}
+
+	size = find_len(argv[1]) + find_len(argv[2]);
+	end_prod = create_xarray(size + 1);
+	nxt_prod = create_xarray(size + 1);
+
+	for (index = find_len(argv[2]) - 1; index >= 0; index--)
+	{
+		digit = get_digit(*(argv[2] + index));
+		get_prod(nxt_prod, argv[1], digit, zeroes++);
+		add_nums(end_prod, nxt_prod, size - 1);
+	}
+	for (index = 0; end_prod[index]; index++)
+	{
+		if (end_prod[index] != 'x')
+			putchar(end_prod[index]);
+	}
+	putchar('\n');
+
+	free(nxt_prod);
+	free(end_prod);
+
+	return (0);
+}
