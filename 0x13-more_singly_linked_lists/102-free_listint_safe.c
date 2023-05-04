@@ -12,6 +12,7 @@ size_t free_listint_safe(listint_t **h)
 	listint_t *num_strt = *h, *node;
 	size_t num;
 	num = 0;
+	
 	if (!h || !*h)
 	{
 		return (num);
@@ -34,3 +35,4 @@ size_t free_listint_safe(listint_t **h)
 	}
 	*h = NULL;
 	return (num);
+}
