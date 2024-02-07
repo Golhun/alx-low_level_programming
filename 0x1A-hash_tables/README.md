@@ -44,3 +44,4 @@ Contributions to this directory are welcome! If you have any improvements, bug f
 - [Introduction to Algorithms by Thomas H. Cormen](https://en.wikipedia.org/wiki/Introduction_to_Algorithms)
 
 Happy Coding
+~ Gerald
